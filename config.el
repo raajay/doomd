@@ -25,11 +25,24 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-nord)
+(setq doom-theme 'doom-one)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/org/")
+(setq org-journal-dir "~/org/journal/"            ; where my journal files are
+      org-journal-file-format "%Y-%m-%d.org"  ; their file names
+      org-journal-enable-agenda-integration t ; so entries are on the agenda
+      ;; org-icalendar-store-UID t               ; so changes sync correctly
+      ;; org-icalendar-include-todo "all"        ; include TODOs and DONEs
+      ;; org-icalendar-combined-agenda-file "~/calendar/org-journal.ics"
+      )
+(after! org-capture
+  (add-to-list 'org-capture-templates
+               '("c" "Canvas Task"  entry
+                 (file+headline +org-capture-todo-file "Canvas X")
+                 "** TODO %?\n%i\n%a" :empty-lines 1))
+  )
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
